@@ -50,7 +50,7 @@ class Game
       after_next_frame.frame_score_array
 
       left_shots = next_frame.frame_shots + after_next_frame.frame_shots
-      @point += if frame.calc_strike==true           
+      @point += if frame.calc_strike         
                   frame.frame_shots.sum + left_shots.slice(0, 2).sum
                 elsif frame.calc_spare
                   frame.frame_shots.sum + left_shots.fetch(0)
