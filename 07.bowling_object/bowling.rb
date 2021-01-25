@@ -10,8 +10,6 @@ def calc_game_points(game)
 
   game.frames.each do |frame| # frameインスタンスごとに、point計算に必要なものを計算
     frame.frame_score_array
-    frame.calc_strike
-    frame.calc_spare
   end
 
   game.calc_point
