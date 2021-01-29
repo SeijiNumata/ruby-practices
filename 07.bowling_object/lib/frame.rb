@@ -2,6 +2,7 @@
 
 class Frame
   attr_accessor :frame, :frame_shots
+
   def initialize(frame)
     @frame = frame
   end
