@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'frame'
+require_relative 'shot'
 class Game
   attr_accessor :point, :frames, :shots, :input
 

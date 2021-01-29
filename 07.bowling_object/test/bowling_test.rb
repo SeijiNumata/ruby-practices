@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
-require_relative '../bowling'
+require_relative '../lib/game'
 
 class BowlingTest < Minitest::Test
   def test_bowling
