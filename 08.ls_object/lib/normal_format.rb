@@ -1,32 +1,26 @@
 # frozen_string_literal: true
 
-# lオプションではないフォーマット
 class NormalFormat
   attr_accessor :files
 
+  COLUMN = 3
+  BLANK = 7
+
   def initialize(files)
     @files = files
-    max_length
-  end
-
-  # 一番長いファイルの文字数
-  def max_length
     @max_length = @files.max_by(&:size).length
   end
 
-  def output_3_arrays
-    i = 0
-    while i < files.sort.size % 3
-      i += 1
-      files << ''
+  def output_file_table
+    row_count = (files.count.to_f / COLUMN).ceil
+    transposed_filenames = safe_transpose(files.each_slice(row_count).to_a)
+
+    transposed_filenames.map do |row_file|
+      puts row_file.map { |filename| filename.to_s.ljust(@max_length + BLANK) }.join
     end
-    number_of_files = files.size / 3
-    output_array_files = @files.each_slice(number_of_files).to_a.transpose
-    output_array_files.each do |array_file|
-      array_file.each do |file|
-        print file.ljust(@max_length + 3)
-      end
-      puts
-    end
+  end
+
+  def safe_transpose(nested_file_names)
+    nested_file_names[0].zip(*nested_file_names[1..-1])
   end
 end

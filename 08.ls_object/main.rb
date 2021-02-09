@@ -6,17 +6,14 @@ require_relative './lib/ls_file'
 require_relative './lib/long_format'
 require_relative './lib/normal_format'
 
-# lオプションのフォーマット
-
 options = ARGV.getopts('a', 'l', 'r')
-lscommand = LsFile.new(options)
-files = lscommand.gets_files
+ls_file = LsFile.new(options)
+files = ls_file.gets_files
 
 if options['l']
-  long = LongFormat.new(files)
-  long.option_l_total
-  long.options_l
+  long_format = LongFormat.new(files)
+  long_format.combine_loption_method
 else
-  format = NormalFormat.new(files)
-  format.output_3_arrays
+  normal_format = NormalFormat.new(files)
+  normal_format.output_file_table
 end
