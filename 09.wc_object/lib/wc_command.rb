@@ -6,12 +6,7 @@ class WcCommand
   end
 
   def run_wc(option)
-    if check_argv
-      wc_files = WcFiles.new(option)
-      wc_files.run
-    else
-      wc_input = WcInput.new(option)
-      wc_input.run
-    end
+    calculator = check_argv ? FilesCalculator.new(option) : InputCalculator.new(option)
+    calculator.run
   end
 end

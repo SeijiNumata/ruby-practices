@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WcInput
+class InputCalculator
   def initialize(option)
     @option = option
   end
