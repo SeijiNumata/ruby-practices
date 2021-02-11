@@ -2,18 +2,13 @@
 
 require 'etc'
 require 'optparse'
-require_relative './lib/ls_file'
-require_relative './lib/long_format'
-require_relative './lib/normal_format'
+require_relative './lib/file_finder'
+require_relative './lib/long_formatter'
+require_relative './lib/normal_formatter'
 
 options = ARGV.getopts('a', 'l', 'r')
-ls_file = LsFile.new(options)
-files = ls_file.gets_files
+file_finder = FileFinder.new(options)
+files = file_finder.find_files
 
-if options['l']
-  long_format = LongFormat.new(files)
-  long_format.combine_loption_method
-else
-  normal_format = NormalFormat.new(files)
-  normal_format.output_file_table
-end
+formatter = options['l'] ? LongFormatter.new(files) : NormalFormatter.new(files)
+formatter.output_files

@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-class NormalFormat
-  attr_accessor :files
-
+class NormalFormatter
   COLUMN = 3
   BLANK = 7
+
+  attr_accessor :files
 
   def initialize(files)
     @files = files
     @max_length = @files.max_by(&:size).length
   end
 
-  def output_file_table
+  def output_files
     row_count = (files.count.to_f / COLUMN).ceil
     transposed_filenames = safe_transpose(files.each_slice(row_count).to_a)
 
@@ -19,6 +19,8 @@ class NormalFormat
       puts row_file.map { |filename| filename.to_s.ljust(@max_length + BLANK) }.join
     end
   end
+
+  private
 
   def safe_transpose(nested_file_names)
     nested_file_names[0].zip(*nested_file_names[1..-1])
