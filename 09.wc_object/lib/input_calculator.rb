@@ -8,10 +8,9 @@ class InputCalculator
 
   def call
     calc = Calc.new
-    row = []
-    row <<  calc.calc_lines(@input.join)
-    row <<  calc.calc_words(@input.join) unless @option['l']
-    row <<  calc.calc_bytes(@input.join) unless @option['l']
-    row
+    lines = calc.calc_lines(@input.join)
+    words = calc.calc_words(@input.join) unless @option['l']
+    bytes = calc.calc_bytes(@input.join) unless @option['l']
+    [lines: lines, words: words, bytes: bytes]
   end
 end

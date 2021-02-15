@@ -12,33 +12,30 @@ class FilesCalculator
     files.each do |filename|
       file_contents = File.open(filename).read
       row = calc_depend_opt(file_contents)
-      row.each do |field|
-        table << field
-      end
-      table << filename
+      row[:filename] = filename
+      table << row
     end
-    calc_total(table) if files.size >= 2
+    table << calc_total(table) if files.size >= 2
     table
   end
 
   private
 
   def calc_total(table)
-    l = 0
-    w = 0
-    b = 0
-    table.each_with_index do |field, index|
-      if (index % 4).zero?
-        l += field
-      elsif index % 4 == 1
-        w += field unless field.is_a?(String)
-      elsif index % 4 == 2
-        b += field unless field.is_a?(String)
-      end
+    total_lines = 0
+    total_words = 0
+    total_bytes = 0
+
+    table.each_with_index do |field, _index|
+      total_lines += field[:lines]
+      total_words += field[:words] unless @option['l']
+      total_bytes += field[:bytes] unless @option['l']
     end
-    table << l
-    table << w
-    table << b
+    if @option['l']
+      { lines: total_lines, filename: ' total' }
+    else
+      { lines: total_lines, words: total_words, bytes: total_bytes, filename: ' total' }
+    end
   end
 
   def validate_and_get_file(isfiles)
@@ -55,11 +52,12 @@ class FilesCalculator
     calc = Calc.new
     lines = calc.calc_lines(str)
     if @option['l']
-      [lines.to_i]
+      row = { lines: lines.to_i }
     else
       words = calc.calc_words(str)
       bytes = calc.calc_bytes(str)
-      [lines.to_i, words.to_i, bytes.to_i]
+      row = { lines: lines.to_i, words: words.to_i, bytes: bytes.to_i }
     end
+    row
   end
 end
