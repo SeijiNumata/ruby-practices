@@ -13,23 +13,32 @@ class FilesCalculator
       file_contents = File.open(filename).read
       row = calc_depend_opt(file_contents)
       row.each do |field|
-        print field.to_s.rjust(8)
+        table << field
       end
-      puts " #{filename}"
-      table << row
+      table << filename
     end
-
-    output_total(table) if files.size >= 2
+    calc_total(table) if files.size >= 2
+    table
   end
 
   private
 
-  def output_total(table)
-    totals = table.transpose
-    totals.each do |total|
-      print total.sum.to_s.rjust(8)
+  def calc_total(table)
+    l = 0
+    w = 0
+    b = 0
+    table.each_with_index do |field, index|
+      if (index % 4).zero?
+        l += field
+      elsif index % 4 == 1
+        w += field unless field.is_a?(String)
+      elsif index % 4 == 2
+        b += field unless field.is_a?(String)
+      end
     end
-    puts ' total'
+    table << l
+    table << w
+    table << b
   end
 
   def validate_and_get_file(isfiles)
