@@ -5,7 +5,7 @@ class FilesCalculator
     @option = option
   end
 
-  def run
+  def call
     files = validate_and_get_file(ARGV)
     table = []
 

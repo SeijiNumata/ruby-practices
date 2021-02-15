@@ -6,7 +6,7 @@ class InputCalculator
     @input = input
   end
 
-  def run
+  def call
     calc = Calc.new
     row = []
     row <<  calc.calc_lines(@input.join)

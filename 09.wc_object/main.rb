@@ -3,12 +3,10 @@
 require 'optparse'
 require_relative 'lib/calc'
 require_relative 'lib/input_calculator'
-require_relative 'lib/wc_command'
 require_relative 'lib/files_calculator'
-require_relative 'lib/formatter'
 
 options = ARGV.getopts('l')
-def check_argv
+def is_exists_argv
   if !ARGV[0].nil?
     true
   else
@@ -57,18 +55,18 @@ def formatter_not_lopt(calc_results)
   puts if input_flag == 1
 end
 
-def run_wc(option)
-  if check_argv
+def call(option)
+  if is_exists_argv
     calculator = FilesCalculator.new(option)
   else
     input = $stdin.readlines
     calculator = InputCalculator.new(option, input)
   end
   if option['l'] == false
-    formatter_not_lopt(calculator.run)
+    formatter_not_lopt(calculator.call)
   else
-    formatter_lopt(calculator.run)
+    formatter_lopt(calculator.call)
   end
 end
 
-run_wc(options)
+call(options)
