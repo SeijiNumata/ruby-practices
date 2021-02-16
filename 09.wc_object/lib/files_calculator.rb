@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'calc'
 class FilesCalculator
   def initialize(option)
     @option = option
@@ -32,9 +33,9 @@ class FilesCalculator
       total_bytes += field[:bytes] unless @option['l']
     end
     if @option['l']
-      { lines: total_lines, filename: ' total' }
+      { lines: total_lines, filename: 'total' }
     else
-      { lines: total_lines, words: total_words, bytes: total_bytes, filename: ' total' }
+      { lines: total_lines, words: total_words, bytes: total_bytes, filename: 'total' }
     end
   end
 

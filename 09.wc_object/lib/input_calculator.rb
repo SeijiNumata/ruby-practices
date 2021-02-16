@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'calc'
 class InputCalculator
   def initialize(option, input)
     @option = option
