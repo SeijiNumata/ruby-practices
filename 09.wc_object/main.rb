@@ -5,5 +5,4 @@ require_relative 'lib/wc'
 
 options = ARGV.getopts('l')
 
-wc = Wc.new
-puts wc.call(options)
+puts Wc.new.call(options)

@@ -4,14 +4,14 @@ require_relative 'calc'
 class InputCalculator
   def initialize(option, input)
     @option = option
-    @input = input
+    @input = input.join
   end
 
   def call
-    calc = Calc.new
-    lines = calc.calc_lines(@input.join)
-    words = calc.calc_words(@input.join) unless @option['l']
-    bytes = calc.calc_bytes(@input.join) unless @option['l']
+    calc = Calc.new(@input)
+    lines = calc.lines
+    words = calc.words unless @option['l']
+    bytes = calc.bytes unless @option['l']
     [lines: lines, words: words, bytes: bytes]
   end
 end

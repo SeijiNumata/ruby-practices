@@ -5,8 +5,8 @@ require_relative 'files_calculator'
 
 class Wc
   def call(option)
-    if exists_argv
-      calculator = FilesCalculator.new(option)
+    if !ARGV[0].nil?
+      calculator = FilesCalculator.new(option, ARGV)
     else
       input = $stdin.readlines
       calculator = InputCalculator.new(option, input)
@@ -19,14 +19,6 @@ class Wc
   end
 
   private
-
-  def exists_argv
-    if !ARGV[0].nil?
-      true
-    else
-      false
-    end
-  end
 
   def formatter_lopt(calc_results)
     for_output_table = +''

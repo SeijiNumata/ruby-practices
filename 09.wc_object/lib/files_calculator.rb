@@ -2,12 +2,13 @@
 
 require_relative 'calc'
 class FilesCalculator
-  def initialize(option)
+  def initialize(option, input)
     @option = option
+    @input = input
   end
 
   def call
-    files = validate_and_get_file(ARGV)
+    files = validate_and_get_file(@input)
     table = []
 
     files.each do |filename|
@@ -27,7 +28,7 @@ class FilesCalculator
     total_words = 0
     total_bytes = 0
 
-    table.each_with_index do |field, _index|
+    table.each do |field|
       total_lines += field[:lines]
       total_words += field[:words] unless @option['l']
       total_bytes += field[:bytes] unless @option['l']
@@ -50,14 +51,14 @@ class FilesCalculator
   end
 
   def calc_depend_opt(str)
-    calc = Calc.new
-    lines = calc.calc_lines(str)
+    calc = Calc.new(str)
+    lines = calc.lines
     if @option['l']
       row = { lines: lines.to_i }
     else
-      words = calc.calc_words(str)
-      bytes = calc.calc_bytes(str)
-      row = { lines: lines.to_i, words: words.to_i, bytes: bytes.to_i }
+      words = calc.words
+      bytes = calc.bytes
+      row = { lines: lines, words: words, bytes: bytes }
     end
     row
   end

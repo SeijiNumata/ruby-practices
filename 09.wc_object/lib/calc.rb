@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 class Calc
-  def calc_lines(str)
-    str.count("\n")
+  def initialize(str)
+    @str = str
   end
 
-  def calc_words(str)
-    str.split(/\s/).count { |w| !w.empty? }
+  def lines
+    @str.count("\n").to_i
   end
 
-  def calc_bytes(str)
-    str.bytesize
+  def words
+    @str.split(/\s/).count { |w| !w.empty? }.to_i
+  end
+
+  def bytes
+    @str.bytesize.to_i
   end
 end
