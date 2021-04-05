@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Calc
+class Calculator
   def initialize(str)
     @str = str
   end

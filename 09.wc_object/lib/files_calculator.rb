@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'calc'
+require_relative 'calculator'
+
 class FilesCalculator
   def initialize(option, input)
     @option = option
@@ -8,22 +9,23 @@ class FilesCalculator
   end
 
   def call
-    files = validate_and_get_file(@input)
+    validate(@input)
+    files = @input
     table = []
 
     files.each do |filename|
       file_contents = File.open(filename).read
-      row = calc_depend_opt(file_contents)
+      row = calculate_depend_opt(file_contents)
       row[:filename] = filename
       table << row
     end
-    table << calc_total(table) if files.size >= 2
+    table << calculate_total(table) if files.size >= 2
     table
   end
 
   private
 
-  def calc_total(table)
+  def calculate_total(table)
     total_lines = 0
     total_words = 0
     total_bytes = 0
@@ -40,24 +42,23 @@ class FilesCalculator
     end
   end
 
-  def validate_and_get_file(isfiles)
+  def validate(isfiles)
     isfiles.each_with_index do |arg, i|
       if File.directory?(arg) == true || File.exist?(arg) == false
         puts "#{isfiles[i]}: No such file or directory"
         exit
       end
-      isfiles
     end
   end
 
-  def calc_depend_opt(str)
-    calc = Calc.new(str)
-    lines = calc.lines
+  def calculate_depend_opt(str)
+    calculator = Calculator.new(str)
+    lines = calculator.lines
     if @option['l']
       row = { lines: lines.to_i }
     else
-      words = calc.words
-      bytes = calc.bytes
+      words = calculator.words
+      bytes = calculator.bytes
       row = { lines: lines, words: words, bytes: bytes }
     end
     row

@@ -20,18 +20,18 @@ class Wc
 
   private
 
-  def formatter_lopt(calc_results)
+  def formatter_lopt(calculate_results)
     for_output_table = +''
-    calc_results.each do |row|
+    calculate_results.each do |row|
       for_output_table << row[:lines].to_s.rjust(8).to_s
       for_output_table << " #{row[:filename]}\n"
     end
     for_output_table
   end
 
-  def formatter_not_lopt(calc_results)
+  def formatter_not_lopt(calculate_results)
     for_output_table = +''
-    calc_results.each do |row|
+    calculate_results.each do |row|
       for_output_table << row[:lines].to_s.rjust(8)
       for_output_table << row[:words].to_s.rjust(8)
       for_output_table << row[:bytes].to_s.rjust(8)

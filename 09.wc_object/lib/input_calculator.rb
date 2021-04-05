@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'calc'
+require_relative 'calculator'
 class InputCalculator
   def initialize(option, input)
     @option = option
@@ -8,10 +8,10 @@ class InputCalculator
   end
 
   def call
-    calc = Calc.new(@input)
-    lines = calc.lines
-    words = calc.words unless @option['l']
-    bytes = calc.bytes unless @option['l']
+    calculator = Calculator.new(@input)
+    lines = calculator.lines
+    words = calculator.words unless @option['l']
+    bytes = calculator.bytes unless @option['l']
     [lines: lines, words: words, bytes: bytes]
   end
 end
