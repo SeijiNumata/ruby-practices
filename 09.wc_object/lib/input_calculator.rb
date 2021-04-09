@@ -8,7 +8,7 @@ class InputCalculator
   end
 
   def call
-    calculator = Calculator.new(@input)
+    calculator = WcCommand::Calculator.new(@input)
     lines = calculator.lines
     words = calculator.words unless @option['l']
     bytes = calculator.bytes unless @option['l']

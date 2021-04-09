@@ -52,7 +52,7 @@ class FilesCalculator
   end
 
   def calculate_depend_opt(str)
-    calculator = Calculator.new(str)
+    calculator = WcCommand::Calculator.new(str)
     lines = calculator.lines
     if @option['l']
       row = { lines: lines.to_i }
